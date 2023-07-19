@@ -136,7 +136,7 @@ router.get('/', async (req, res) => {
             }
         })
         console.log({'fatCount': fatCount})
-        if (fatCount >= 6) {
+        if (fatCount >= 6 || fatCount == 4) {
             sixFatsOneThin.push({
                 'symbol': symbol,
                 'count': fatCount
