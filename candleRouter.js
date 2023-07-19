@@ -29,6 +29,7 @@ router.get('/', async (req, res) => {
                 : puppeteer.executablePath(),
           });
         const page = await browser.newPage()
+        await page.setDefaultNavigationTimeout(0);
         await page.setViewport({ width: 1080, height: 1024 });
         let elements;
         let element;
