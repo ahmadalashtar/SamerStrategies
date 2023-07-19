@@ -3,7 +3,8 @@ const router = express.Router();
 const puppeteer = require('puppeteer');
 // const pairs = ["CHFJPY", "USDJPY"]
 const symbols = ['JPY','CHF', 'USD','EUR', 'GBP','CAD','AUD','NZD']
-const pairs = ["CHFJPY", "USDJPY", "EURJPY", "GBPJPY"]
+const pairs = ['CHFJPY']
+// const pairs = ["CHFJPY", "USDJPY", "EURJPY", "GBPJPY",
 // "CADJPY", "AUDJPY", "NZDJPY", "USDCAD", "EURCAD", "GBPCAD",
 //     "AUDCAD", "NZDCAD", "EURUSD", "GBPUSD", "AUDUSD", "NZDUSD",
 //     "EURAUD", "EURNZD", "GBPAUD", "GBPNZD", "EURGBP", "AUDNZD",
