@@ -17,16 +17,19 @@ router.get('/', async (req, res) => {
     res.setHeader('Content-Type', 'text/html');
     for(let pair of pairs){
         const browser = await puppeteer.launch({
-            args: ["--disable-setui-sandbox",
-                "--no-sandbox",
-                "--single-process",
-            "--no-zygote"],
-            headless: true,
-            executablePath: process.env.NODE_ENV == 'production' ?
-                process.env.PUPPETEER_EXECUTABLE_PATH : puppeteer.executablePath()})
+            args: [
+              "--disable-setuid-sandbox",
+              "--no-sandbox",
+              "--single-process",
+              "--no-zygote",
+            ],
+            executablePath:
+              process.env.NODE_ENV === "production"
+                ? process.env.PUPPETEER_EXECUTABLE_PATH
+                : puppeteer.executablePath(),
+          });
         const page = await browser.newPage()
-        await page.setUserAgent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36');
-        await page.setViewport({ width: 1200, height: 800 })
+        await page.setViewport({ width: 1080, height: 1024 });
         let elements;
         let element;
         let found;
