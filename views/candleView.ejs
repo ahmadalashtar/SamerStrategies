@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>الشموع<h3>
+    <div>
+        <ul>
+    <% for (let i = 0; i < results.length; i++) { %>
+        
+        <li style="color: <%= results[i].color %>;  ">
+            <%= results[i].pair %> : <%= results[i].state %>
+            
+        </li>
+       
+      <% } %>
+    </ul>
+    
+    </div>
+    <h2>استراتيجية ال 6 د + 1 ر</h3>
+    <div>
+        <ul>
+    <% for (let i = 0; i < sixFatsOneThin.length; i++) { %>
+        
+        <li>
+            <%= sixFatsOneThin[i].symbol %> : <%=sixFatsOneThin[i].count%>
+            
+        </li>
+       
+      <% } %>
+    </ul>
+    </div>
+</body>
+</html>
