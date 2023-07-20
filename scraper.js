@@ -1,115 +1,66 @@
+const fetch = require('node-fetch');
+const { get } = require('./candleRouter');
+const JSDOM = require("jsdom").JSDOM;
 
-const puppeteer = require('puppeteer');
+const getCandle = async (pair) => {
+    const url = `https://finance.yahoo.com/quote/${pair}%3DX/history?period1=1658296191&period2=1689832191&interval=1wk&filter=history&frequency=1wk&includeAdjustedClose=true`
+    const response = await fetch(url);
+    const data = await response.text();
+    const dom = new JSDOM(data);
+    const window = dom.window
+    const document = window.document
+    const tbodies = document.getElementsByTagName('tbody')
+    const tbody = tbodies[0]
+    const elements = tbody.firstChild
+    const children = elements.childNodes
 
-const pairs = ["CHFJPY", "USDJPY", "EURJPY", "GBPJPY", "CADJPY", "AUDJPY", "NZDJPY", "USDCAD", "EURCAD", "GBPCAD", "AUDCAD", "NZDCAD", "EURUSD", "GBPUSD", "AUDUSD", "NZDUSD", "EURAUD", "EURNZD", "GBPAUD", "GBPNZD", "EURGBP", "AUDNZD", "USDCHF", "EURCHF", "GBPCHF", "CADCHF", "AUDCHF", "NZDCHF"]
-// const pairs = ["CHFJPY", "USDJPY", "EURJPY", "GBPJPY", "CADJPY", "AUDJPY", "NZDJPY"]
-let results = [];
-for (let i = 0; i < pairs.length; i++) {
-    (async () => {
-    
-        const pair = pairs[i]
-        const browser = await puppeteer.launch()
-        const page = await browser.newPage()
-        await page.setViewport({ width: 1280, height: 800 })
-        let elements;
-        let element;
-        let found;
-        let text;
-        await page.goto(`https://www.tradingview.com/chart/?symbol=FX%3A${pair}`);
+    const childList = [children[1], children[2], children[3], children[4]]
 
-        elements = await page.$$('.valueValue-l31H9iuA')
-        found = false;
-        while (!found) {
-            if (elements.length > 0) {
-                found = true;
-            }
-            elements = await page.$$('.valueValue-l31H9iuA')
-        }
-        element = elements[1]
+    const spanList = [childList[0].firstChild, childList[1].firstChild,
+    childList[2].firstChild, childList[3].firstChild]
+    const valueList = [Number(spanList[0].innerHTML), Number(spanList[1].innerHTML),
+        Number(spanList[2].innerHTML), Number(spanList[3].innerHTML)]
+    let item = document.getElementById('quote-header-info')
+    console.log(item.childNodes.length)
+    // const items = document.getElementsByTagName('fin-streamer') 
+    // console.log(items.length)
+    // const item = items[19]
+    // const element = item.firstChild
+    // const color = window.getComputedStyle(element, null).getPropertyValue('color');  
+    // console.log([valueList, color])
+    O = valueList[0];
+    H = valueList[1]
+    L = valueList[2]
+    C = valueList[3];
 
-        const initialO = await (await element.getProperty('textContent')).jsonValue();
+    const U = (O >= C ? O : C);
+    const D = (C <= O ? C : O);
+    const upperShade = H - U;
+    const lowerShade = D - L;
+    const body = U - D;
+    let state;
+    if (body < lowerShade || body < lowerShade) {
+        state = 'thin'
+    } else {
+        state = 'fat'
+    }
+    const candle = {
+        'pair': pair,
+        'O': O,
+        'H': H,
+        'L': L,
+        'C': C,
+        // 'color': color,
+        'U': U,
+        'D': D,
+        'upperShade': Number(upperShade.toFixed(3)),
+        'lowerShade': Number(lowerShade.toFixed(3)),
+        'body': Number(body.toFixed(3)),
+        'state': state,
 
-
-        elements = await page.$$('.text-GwQQdU8S')
-
-        found = false;
-
-        while (!found) {
-            if (elements.length > 0) {
-                found = true;
-            }
-            elements = await page.$$('.text-GwQQdU8S');
-            element = elements[19]
-        }
-
-        await element.click();
-
-
-        elements = []
-        found = false;
-        while (!found) {
-            text = await (await element.getProperty('textContent')).jsonValue()
-            if (elements.length > 0 && text != initialO) {
-                found = true;
-            }
-            elements = await page.$$('.valueValue-l31H9iuA')
-            element = elements[1]
-        }
-
-        O = Number(text);
-        element = elements[2]
-        text = await (await element.getProperty('textContent')).jsonValue()
-        H = Number(text);
-        element = elements[3]
-        text = await (await element.getProperty('textContent')).jsonValue()
-        L = Number(text);
-        element = elements[4]
-        text = await (await element.getProperty('textContent')).jsonValue()
-        C = Number(text);
-
-        const color = await page.evaluate(() => {
-        
-            const items = document.getElementsByClassName('valueValue-l31H9iuA')
-            const item = items[1]
-            return item.style.color
-        });
-
-        const U = (O >= C ? O : C);
-        const D = (C <= O ? C : O);
-        const upperShade = H - U;
-        const lowerShade = D - L;
-        const body = U - D;
-        let state;
-        if (body < lowerShade || body < lowerShade) {
-            state = 'thin'
-        } else {
-            state = 'fat'
-        }
-
-        const candle = {
-            'O': O,
-            'H': H,
-            'L': L,
-            'C': C,
-            'color': color,
-            'U': U,
-            'D': D,
-            'upperShade': upperShade,
-            'lowerShade': lowerShade,
-            'body': body,
-            'state': state,
-
-        }
-        const arabicState = state == 'thin' ? 'ارتدادية' : 'دسمة'
-        const result = {
-            'pair': pair,
-            'state': arabicState,
-            'color': color
-        }
-        results.push(result)
-        console.log({ 'result': result })
-        console.log({ 'results': results })
-        await browser.close()
-
-    })()
+    }
+    console.log({'candle': candle})
+    return candle;
 }
+module.exports = { getCandle }
+
