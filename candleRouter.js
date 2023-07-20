@@ -4,11 +4,14 @@ const puppeteer = require('puppeteer');
 require('dotenv').config();
 // const pairs = ["CHFJPY", "USDJPY"]
 const symbols = ['JPY','CHF', 'USD','EUR', 'GBP','CAD','AUD','NZD']
-const pairs = ["CHFJPY", "USDJPY", "EURJPY", "GBPJPY",
-"CADJPY", "AUDJPY", "NZDJPY", "USDCAD", "EURCAD", "GBPCAD",
-    "AUDCAD", "NZDCAD", "EURUSD", "GBPUSD", "AUDUSD", "NZDUSD",
-    "EURAUD", "EURNZD", "GBPAUD", "GBPNZD", "EURGBP", "AUDNZD",
-    "USDCHF", "EURCHF", "GBPCHF", "CADCHF", "AUDCHF", "NZDCHF"]
+const pairs = ["CHFJPY"]
+               // , "USDJPY", "EURJPY", "GBPJPY","CADJPY", "AUDJPY", "NZDJPY"]
+// 
+// const pairs = ["CHFJPY", "USDJPY", "EURJPY", "GBPJPY",
+// "CADJPY", "AUDJPY", "NZDJPY", "USDCAD", "EURCAD", "GBPCAD",
+//     "AUDCAD", "NZDCAD", "EURUSD", "GBPUSD", "AUDUSD", "NZDUSD",
+//     "EURAUD", "EURNZD", "GBPAUD", "GBPNZD", "EURGBP", "AUDNZD",
+//     "USDCHF", "EURCHF", "GBPCHF", "CADCHF", "AUDCHF", "NZDCHF"]
 
 // Define the "candle" route
 router.get('/', async (req, res) => {
