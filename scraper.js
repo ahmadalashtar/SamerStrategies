@@ -20,8 +20,8 @@ const getCandle = async (pair) => {
     childList[2].firstChild, childList[3].firstChild]
     const valueList = [Number(spanList[0].innerHTML), Number(spanList[1].innerHTML),
         Number(spanList[2].innerHTML), Number(spanList[3].innerHTML)]
-    let item = document.getElementById('quote-header-info')
-    console.log(item.childNodes.length)
+    // let item = document.getElementById('quote-header-info')
+    // console.log(item.childNodes.length)
     // const items = document.getElementsByTagName('fin-streamer') 
     // console.log(items.length)
     // const item = items[19]
@@ -62,5 +62,6 @@ const getCandle = async (pair) => {
     console.log({'candle': candle})
     return candle;
 }
+getCandle('NZDCHF')
 module.exports = { getCandle }
 

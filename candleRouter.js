@@ -14,12 +14,18 @@ const pairs = ["CHFJPY", "USDJPY", "EURJPY", "GBPJPY",
 router.get('/', async (req, res) => {
     let results = [];
     for (const pair of pairs) {
-        const candle = await getCandle(pair);
-        const result = {
-            'pair': candle['pair'],
-            'state': candle['state'] == 'thin' ? 'ارتدادية' : 'دسمة',
+        try {
+            const candle = await getCandle(pair);
+            const result = {
+                'pair': candle['pair'],
+                'state': candle['state'] == 'thin' ? 'ارتدادية' : 'دسمة',
+            }
+            results.push(result)
+        } catch(error) {
+            console.log(`Found an error: ${error}`)
+            console.log(`${pair} pushed`)
+            pairs.push(pair)
         }
-        results.push(result)
 
     }
     res.send(results)
