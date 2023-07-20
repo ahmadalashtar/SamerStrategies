@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const puppeteer = require('puppeteer');
 const { getCandle } = require('./scraper')
 
 // const pairs = ["CHFJPY"]
