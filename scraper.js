@@ -62,6 +62,5 @@ const getCandle = async (pair) => {
     console.log({'candle': candle})
     return candle;
 }
-getCandle('NZDCHF')
 module.exports = { getCandle }
 
