@@ -27,6 +27,12 @@ router.get('/', async (req, res) => {
         // pairs.push(pair)
     }
 
+    // let displayedCandles = [];
+    
+
+
+
+    // res.render('candleView.ejs',{candles: displayedCandles})
     res.send(candles)
 
     //     const arabicState = state == 'thin' ? 'ارتدادية' : 'دسمة'

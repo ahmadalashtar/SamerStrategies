@@ -9,7 +9,6 @@ const candleRouter = require('./candleRouter');
 
 // Define a route for the root URL
 app.get('/', (req, res) => {
-  res.render('candleView.ejs')
 })
 
 app.use('/candle', candleRouter);
