@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getCandle } = require('./scraper')
+const { getCandle } = require('./candle')
 
 // const pairs = ["CHFJPY"]
 const symbols = ['JPY','CHF', 'USD','EUR', 'GBP','CAD','AUD','NZD']
@@ -9,26 +9,25 @@ const pairs = ["CHFJPY", "USDJPY", "EURJPY", "GBPJPY",
     "AUDCAD", "NZDCAD", "EURUSD", "GBPUSD", "AUDUSD", "NZDUSD",
     "EURAUD", "EURNZD", "GBPAUD", "GBPNZD", "EURGBP", "AUDNZD",
     "USDCHF", "EURCHF", "GBPCHF", "CADCHF", "AUDCHF", "NZDCHF"]
-
 // Define the "candle" route
-router.get('/', async (req, res) => {
-    let results = [];
-    for (const pair of pairs) {
-        try {
-            const candle = await getCandle(pair);
-            const result = {
-                'pair': candle['pair'],
-                'state': candle['state'] == 'thin' ? 'ارتدادية' : 'دسمة',
-            }
-            results.push(result)
-        } catch(error) {
-            console.log(`Found an error: ${error}`)
-            console.log(`${pair} pushed`)
-            pairs.push(pair)
-        }
 
+router.get('/', async (req, res) => {
+    let candles;
+
+    try {
+        candles = await getCandle(pairs);
+        // const result = {
+        //     'pair': candle['pair'],
+        //     'state': candle['state'] == 'thin' ? 'ارتدادية' : 'دسمة',
+        // }
+        // results.push(result)
+    } catch(error) {
+        console.log(`Found an error: ${error}`)
+        // console.log(`${pair} pushed`)
+        // pairs.push(pair)
     }
-    res.send(results)
+
+    res.send(candles)
 
     //     const arabicState = state == 'thin' ? 'ارتدادية' : 'دسمة'
     //     pair = pair[0] + pair[1] + pair[2] + " " + pair[3] + pair[4] + pair[5]
