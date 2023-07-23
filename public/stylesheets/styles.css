@@ -18,23 +18,17 @@
   
   /* Styles for the first div */
   .upper-shadow {
-    height: 50%;
     width: 3px;
-    background: green; /* Just for visualization, you can change the color as needed */
   }
   
   /* Styles for the second div */
   .body {
-    height: 20%;
     width: 30px;
-    background: green; /* Just for visualization, you can change the color as needed */
   }
   
   /* Styles for the third div */
   .lower-sahdow {
-    height: 30%;
     width: 3px;
-    background: green; /* Just for visualization, you can change the color as needed */
   }
   .candlestick h6 {
     font-size: 15px; /* Adjust the font size as needed */

@@ -10,14 +10,18 @@
 <body>
   <div class='candlestick-container'>
 
-    <div class='candlestick'>
-        <div class='upper-shadow'></div>
-        <div class='body'></div>
-        <div class='lower-sahdow'></div>
-        <h6>USDEUR</h6>
-        <h6>دسمة</h6>
-    </div>
+    <% for (let i =1; i <candles.length;  i++ ) { %>
+        <div class='candlestick'>
+            <div class='upper-shadow' style="background: <%=candles[i].color%>; height: <%=candles[i].upperShadow%>%"></div>
+            <div class='body' style="background: <%=candles[i].color%>; height: <%=candles[i].body%>%"></div>
+            <div class='lower-sahdow' style="background: <%=candles[i].color%>; height: <%=candles[i].lowerShade%>%"></div>
+            <h6><%= candles[i].pair %></h6>
+            <h6><%= candles[i].state %></h6>
+        </div>
+        <% } %>
+
     
+
   </div>
 </body>
 </html>
