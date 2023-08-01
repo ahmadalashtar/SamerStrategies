@@ -8,4 +8,5 @@ const day = async () => {
     const adjustedDayNumber = dayNumber === 0 ? 7 : dayNumber;
     return adjustedDayNumber;
 }
+
 module.exports = {day}
