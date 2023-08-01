@@ -18,7 +18,7 @@ const test = async () => {
     console.log(inner)
     
 
-    return inner;
+    return items;
 }
 
 module.exports = { test }
