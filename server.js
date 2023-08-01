@@ -5,8 +5,7 @@ const port = 3000; // Choose any port you prefer
 
 // Define a basic route
 app.get('/', async (req, res) => {
-    const result = await test();
-  res.send(result);
+  res.send(adjustedDayNumber);
 });
 
 // Start the server
