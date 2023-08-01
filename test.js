@@ -13,7 +13,9 @@ const test = async () => {
     const items = document.getElementsByName('openUSDJPY')
     const item = items[1]
     const inner = item.innerHTML
-
+    console.log(items)
+    console.log(item)
+    console.log(inner)
     
 
     return inner;
