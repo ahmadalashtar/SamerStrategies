@@ -2,7 +2,6 @@ const JSDOM = require("jsdom").JSDOM;
 const fetch = require('node-fetch');
 
 const test = async () => {
-    const tabsArray = [];
 
     const baseURL = `https://www.myfxbook.com/forex-market/currencies/USDJPY-historical-data`
     const response = await fetch(baseURL);
@@ -18,7 +17,7 @@ const test = async () => {
     console.log(inner)
     
 
-    return data;
+    return 'hello';
 }
 
 module.exports = { test }
