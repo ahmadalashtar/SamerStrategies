@@ -1,0 +1,36 @@
+.candlestick-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .candlestick {
+    margin:5px;
+    border-style: solid;
+    border-color:black;
+    border-width: thin;
+    align-items:center;
+    flex: 1 0 75px;
+    display: flex;
+  /*   margin: 10px */
+    flex-direction: column;
+    background: gray;
+    height: 100px;
+  }
+  
+  /* Styles for the first div */
+  .upper-shadow {
+    width: 3px;
+  }
+  
+  /* Styles for the second div */
+  .body {
+    width: 30px;
+  }
+  
+  /* Styles for the third div */
+  .lower-sahdow {
+    width: 3px;
+  }
+  .candlestick h6 {
+    font-size: 15px; /* Adjust the font size as needed */
+    margin: 2px 0; /* Adjust the margins as needed */
+  }
